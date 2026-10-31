@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>InstanceSeg Studio</title>
+    <style>
+      :root { --bg:#0f1216; --pan:#171b21; --pan2:#1e232b; --bord:#2a313b; --txt:#d7dde5; --dim:#8b95a3; --acc:#3b82f6; --ok:#22c55e; --ko:#ef4444; --warn:#f59e0b; }
+      * { box-sizing: border-box; }
+      body { margin:0; font:13px/1.45 "Segoe UI", system-ui, sans-serif; background:var(--bg); color:var(--txt); }
+      a { color:var(--acc); text-decoration:none; }
+      button { background:var(--pan2); color:var(--txt); border:1px solid var(--bord); border-radius:6px; padding:6px 12px; cursor:pointer; font:inherit; }
+      button:hover { border-color:var(--acc); }
+      button.primary { background:var(--acc); border-color:var(--acc); color:#fff; }
+      button.danger { background:transparent; border-color:var(--ko); color:var(--ko); }
+      button.ok { background:transparent; border-color:var(--ok); color:var(--ok); }
+      button:disabled { opacity:.4; cursor:not-allowed; }
+      input, select, textarea { background:var(--pan2); color:var(--txt); border:1px solid var(--bord); border-radius:6px; padding:6px 9px; font:inherit; }
+      .bar { display:flex; gap:10px; align-items:center; padding:10px 14px; background:var(--pan); border-bottom:1px solid var(--bord); }
+      .bar .titre { font-weight:600; }
+      .spacer { flex:1; }
+      .layout { display:flex; height:calc(100vh - 49px); }
+      .gauche { width:250px; background:var(--pan); border-right:1px solid var(--bord); overflow-y:auto; }
+      .gauche .item { padding:8px 12px; border-bottom:1px solid var(--bord); cursor:pointer; display:flex; justify-content:space-between; gap:6px; }
+      .gauche .item.actif { background:var(--pan2); border-left:3px solid var(--acc); }
+      .gauche .item .stade { color:var(--dim); font-size:11px; }
+      .centre { flex:1; position:relative; overflow:hidden; background:#000; display:flex; align-items:center; justify-content:center; }
+      .droite { width:320px; background:var(--pan); border-left:1px solid var(--bord); overflow-y:auto; padding:12px; }
+      .panneau h3 { margin:4px 0 10px; font-size:13px; text-transform:uppercase; letter-spacing:.06em; color:var(--dim); }
+      .card { background:var(--pan2); border:1px solid var(--bord); border-radius:8px; padding:10px; margin-bottom:10px; }
+      .classes button { display:block; width:100%; text-align:left; margin-bottom:6px; border-left:4px solid var(--bord); }
+      .compteur { font-variant-numeric:tabular-nums; color:var(--dim); }
+      table { border-collapse:collapse; width:100%; }
+      th, td { text-align:left; padding:5px 8px; border-bottom:1px solid var(--bord); }
+      th { color:var(--dim); font-weight:600; }
+      .login { max-width:340px; margin:12vh auto; }
+      .login h1 { font-size:18px; }
+      .login .card { padding:18px; }
+      .login input { width:100%; margin-bottom:10px; }
+      .err { color:var(--ko); margin:6px 0; }
+      .okmsg { color:var(--ok); }
+      .toast { position:fixed; bottom:14px; right:14px; background:var(--pan2); border:1px solid var(--bord); border-radius:8px; padding:10px 14px; }
+      canvas { cursor:crosshair; }
+      .filtres { display:flex; gap:8px; flex-wrap:wrap; padding:8px 14px; background:var(--pan); border-bottom:1px solid var(--bord); }
+      .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(170px,1fr)); gap:10px; padding:14px; overflow-y:auto; height:calc(100vh - 49px); align-content:start; }
+      .thumb { background:var(--pan); border:1px solid var(--bord); border-radius:8px; overflow:hidden; }
+      .thumb img { width:100%; display:block; height:110px; object-fit:cover; }
+      .thumb .meta { padding:6px 8px; font-size:11px; color:var(--dim); }
+      .badge { display:inline-block; padding:1px 7px; border-radius:10px; font-size:10px; background:var(--pan2); border:1px solid var(--bord); margin-right:4px; }
+      .badge.validee { color:var(--ok); border-color:var(--ok); }
+      .badge.negative { color:var(--warn); border-color:var(--warn); }
+      .onglets { display:flex; gap:2px; }
+      .onglets button { border-radius:6px 6px 0 0; border-bottom:none; padding:7px 12px; color:var(--dim); }
+      .onglets button.actif { background:var(--pan2); color:var(--txt); }
+      .kbd { font:11px monospace; background:var(--pan2); border:1px solid var(--bord); border-radius:4px; padding:0 5px; }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
