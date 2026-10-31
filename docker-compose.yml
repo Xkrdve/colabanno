@@ -1,0 +1,38 @@
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: instanceseg
+    ports:
+      - "127.0.0.1:5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 3s
+      timeout: 3s
+      retries: 20
+
+  api:
+    build: .
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgres://postgres:postgres@db:5432/instanceseg
+      JWT_SECRET: ${JWT_SECRET:-dev-secret-change-me-32-chars!!}
+      PORT: 4000
+      UPLOAD_DIR: /data/uploads
+      EXPORT_DIR: /data/exports
+    ports:
+      - "127.0.0.1:4000:4000"
+    volumes:
+      - uploads:/data/uploads
+      - exports:/data/exports
+
+volumes:
+  pgdata:
+  uploads:
+  exports:
